@@ -1,0 +1,4 @@
+setxkbmap latam
+setxkbmap -option keypad:pointerkeys
+xkbset ma 60 1 1000 10 10
+exec dwm

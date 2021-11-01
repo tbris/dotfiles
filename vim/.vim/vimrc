@@ -1,0 +1,59 @@
+" plugins
+" call plug#begin('~/.vim/plugged')
+" Plug 'junegunn/goyo.vim'
+" Plug 'ap/vim-css-color'
+" Plug 'alvan/vim-closetag'
+" Plug 'maxmellon/vim-jsx-pretty'
+" call plug#end()
+
+" mappings
+" noremap <C-f> :Goyo<CR>
+
+" options
+set incsearch
+set laststatus=2
+set nowrapscan nowrap
+set number relativenumber
+set scrolloff=999 sidescrolloff=999
+set title
+set wildmenu wildignorecase
+filetype plugin indent on
+
+" highlight colors
+colorscheme purple
+
+" viminfo file
+set viminfofile=$XDG_CACHE_HOME/viminfo
+
+" cursor shape
+let &t_SI = "\<Esc>[6 q"
+let &t_SR = "\<Esc>[4 q"
+let &t_EI = "\<Esc>[2 q"
+
+" remove trailing whitespaces and newlines
+augroup removetrailing
+        autocmd!
+        autocmd BufWritePre * execute "normal ma" | %s/\s\+$//e | %s/\n\+\%$//e | execute "normal `a"
+augroup END
+
+" fast escape
+set ttimeoutlen=10
+augroup fastescape
+        autocmd!
+        autocmd InsertEnter * set timeoutlen=0
+        autocmd InsertLeave * set timeoutlen=1000
+augroup END
+
+" groff mom configuration
+augroup groffmom
+        autocmd!
+        autocmd BufRead,BufNewFile *.mom set filetype=groff
+        " autocmd BufWritePost *.mom !(preconv "%" | eqn -Tpdf | tbl | pdfmom) >"%:r.pdf"
+        autocmd BufWritePost *.mom !(preconv "%" | pdfmom) >"%:r.pdf"
+augroup END
+
+" mkshrc
+augroup mkshrc
+        autocmd!
+        autocmd BufRead,BufNewFile .mkshrc set filetype=sh
+augroup END
