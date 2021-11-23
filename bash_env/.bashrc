@@ -1,0 +1,42 @@
+# alias awk='busybox awk'
+alias grep='grep --color'
+alias ls='ls --color'
+# alias sed='busybox sed'
+alias startx='startx "$XDG_CONFIG_HOME/X11/xinitrc"'
+
+alias clean='sync; echo 3 | doas tee /proc/sys/vm/drop_caches >/dev/null'
+alias d='dvtm'
+alias exit='clear; exit'
+alias links='$EDITOR $HOME/Desktop/files/links'
+alias lynx='lynx -cookies'
+alias oldsong='youtube-dl -x --audio-format mp3 -o "/home/gentoo/media/music/directories/vibe0/%(title)s.%(ext)s"'
+alias railsn='rails new --skip-keeps --skip-action-mailer --skip-action-mailbox --skip-action-text --skip-active-job --skip-active-storage --skip-action-cable --skip-listen --skip-javascript --skip-turbolinks --skip-jbuilder --skip-test --skip-system-test'
+alias tetris='clear; tetris'
+alias update='doas emerge --sync; doas emerge --quiet --update --deep --with-bdeps=y --newuse @world'
+alias v='vim'
+
+[ -n "$DVTM" ] && alias man='man 2>/dev/null'
+
+connect() {
+  doas killall wpa_supplicant
+  wpa_passphrase "$1" "$2" >."$1".conf
+  doas wpa_supplicant -c ."$1".conf -B -i wlp3s0
+}
+
+song() {
+  if [ -n "$2" ]; then
+    path="$2"
+  else
+    path="$HOME/media/music/all/"
+  fi
+  if [ -n "$3" ]; then
+    path="${path}${3} - %(title)s.%(ext)s"
+  else
+    path="${path}%(title)s.%(ext)s"
+  fi
+  yt-dlp -f bestaudio[ext=m4a] -o "$path" "$1"
+}
+
+set -o vi
+bind -m vi-insert "\C-l":clear-screen
+export PS1="\[[1;35m\]\w\[[00m\] \$ "

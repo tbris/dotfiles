@@ -48,8 +48,8 @@ augroup END
 augroup groffmom
         autocmd!
         autocmd BufRead,BufNewFile *.mom set filetype=groff
-        " autocmd BufWritePost *.mom !(preconv "%" | eqn -Tpdf | tbl | pdfmom) >"%:r.pdf"
-        autocmd BufWritePost *.mom !(preconv "%" | pdfmom) >"%:r.pdf"
+        autocmd BufWritePost *.mom !(preconv "%" | eqn -Tpdf | tbl | pdfmom) >"%:r.pdf"
+        " autocmd BufWritePost *.mom !(preconv "%" | pdfmom) >"%:r.pdf"
 augroup END
 
 " mkshrc

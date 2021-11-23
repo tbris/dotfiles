@@ -1,2 +1,4 @@
 setxkbmap latam
+unclutter -grab &
+dwm_status &
 exec dwm
